@@ -35,8 +35,13 @@ var lazyloadImages = {
       var H = document.documentElement.clientHeight; //获取可视区域高度
       var S = document.documentElement.scrollTop || document.body.scrollTop;
       for (var i = 0; i < imgs.length; i++) {
-        if (H + S > this.getTop(imgs[i])) {
-          imgs[i].src = imgs[i].getAttribute("data-src");
+        if (H + S > this.getTop(imgs[i]) && this.getTop(imgs[i]) > S - imgs[i].height ) {
+          if(imgs[i].src){
+
+          }
+          else {
+            imgs[i].src = imgs[i].getAttribute("data-src");
+          }
         }
       }
     },
