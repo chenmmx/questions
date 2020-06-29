@@ -306,52 +306,6 @@ var autoComplate = {
         this.data.oul.removeChild(childs.item(i));
       }
     }
-    if (curentIdex < 3) {
-      var insertList = this.getQueryListByPage(curentIdex, size);
-      var length = insertList.length;
-      var that = this;
-      for (let i = 0; i < length; i++) {
-        var li = document.createElement("li");
-        if (this.data.removeKey === insertList[i].key) {
-          li.setAttribute("class", "auto-complate-dropdown-list-item");
-          var otext = document.createElement("span");
-          otext.setAttribute("class", "auto-complate-dropdown-list-item-text");
-          otext.innerText = insertList[i].value;
-          li.appendChild(otext);
-          var oremove1 = document.createElement("span");
-          oremove1.setAttribute(
-            "class",
-            "auto-complate-dropdown-list-item-remove"
-          );
-          oremove1.setAttribute("data-key", insertList[i].key);
-          oremove1.innerText = "x";
-          oremove1.style.display = "inline";
-          li.appendChild(oremove1);
-          oremove1.onclick = this.handleItemRemove.bind(
-            this,
-            oremove1
-          );
-        } else {
-          li.setAttribute("class", "auto-complate-dropdown-list-item");
-          var otext = document.createElement("span");
-          otext.setAttribute("class", "auto-complate-dropdown-list-item-text");
-          otext.innerText = insertList[i].value;
-          li.appendChild(otext);
-          var oremove = document.createElement("span");
-          oremove.setAttribute(
-            "class",
-            "auto-complate-dropdown-list-item-remove"
-          );
-          oremove.setAttribute("data-key", insertList[i].key);
-          oremove.innerText = "x";
-          oremove.style.display = "none";
-          li.appendChild(oremove);
-        }
-        li.setAttribute("data-key", insertList[i].key);
-        this.data.oul.appendChild(li);
-      }
-      return;
-    }
     var insertList = this.getQueryListByPage(curentIdex, size);
     var length = insertList.length;
     for (var i = 0; i < length; i++) {
