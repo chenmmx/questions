@@ -59,6 +59,7 @@ var autoComplate = {
     );
     this.data.oul.onclick = this.handleDropdownItemClick.bind(this);
     this.data.osearch.onclick = this.handleSearch.bind(this);
+    this.data.oremove.onclick = this.handleClear.bind(this);
     window.addEventListener("click", this.windowClick.bind(this));
   },
   /* 防抖
@@ -91,6 +92,19 @@ var autoComplate = {
     if (e.target.className === "auto-complate-btn") return;
     this.data.oinput.focus();
   },
+  /* 清空搜索列表
+   * @method handleClear
+   * @return void
+   */
+  handleClear(e) {
+    e.preventDefault();
+    this.data.oinput.value = "";
+    this.data.searchValue = '';
+    this.data.removeKey = "";
+    this.data.oremove.style.display = "none";
+    this.data.queryList = this.getQueryList("");
+    this.insertToDropdown(1, 16, true);
+  },
   /* Input focus
    * @method handleInputFocus
    * @return void
@@ -112,11 +126,12 @@ var autoComplate = {
     this.data.isSelect = this.data.searchValue ? false : true;
     this.data.queryList = this.getQueryList(this.data.searchValue);
     if (e.target.value) {
-      this.data.oremove.style.opacity = 1;
+      this.data.oremove.style.display = "block";
     } else {
-      this.data.oremove.style.opacity = 0;
+      this.data.oremove.style.display = "none";
     }
     this.insertToDropdown(1, 16, true);
+    this.hideBrotherNodeRemove();
   },
   /* window click
    * @method windowClick
@@ -138,14 +153,15 @@ var autoComplate = {
       e.target.className === "auto-complate-item-content" ||
       e.target.className === "auto-complate-item" ||
       e.target.className === "auto-complate-btn" ||
-      e.target.className === "auto-complate-dropdown-list-item-remove"
+      e.target.className === "auto-complate-dropdown-list-item-remove" ||
+      e.target.className === 'auto-complate-remove'
     )
       return;
     if (this.data.isSelect) {
     } else {
       this.data.oinput.value = "";
       this.data.removeKey = "";
-      this.data.oremove.style.opacity = 0;
+      this.data.oremove.style.display = "none";
     }
     this.data.flag = true;
     this.data.odropdown.style.height = "0px";
@@ -176,26 +192,42 @@ var autoComplate = {
    */
   handleDropdownItemClick(e) {
     e.preventDefault();
+    if(e.target.className === 'auto-complate-dropdown-list-item-remove') {
+      this.data.oremove.style.display = "none";
+    }else {
+      this.data.oremove.style.display = "block";
+    }
     var innerText = e.target.children[0] && e.target.children[0].innerText;
-    this.data.oremove.style.opacity = 1;
     if (innerText) {
       this.data.oinput.value = innerText;
       this.data.searchValue = innerText;
+      this.data.removeKey = e.target.getAttribute("data-key");
     }
     this.data.isSelect = true;
     var oremove = e.target.children[1];
     if (oremove) {
       oremove.style.display = "inline";
       var that = this;
-      oremove.onclick = function () {
-        oremove.style.display = "none";
-        that.data.oinput.value = "";
-        that.data.searchValue = "";
-      };
-      this.data.removeKey = oremove.getAttribute("data-key");
+      oremove.onclick = this.handleItemRemove.bind(this, oremove);
       this.hideBrotherNodeRemove(this.data.removeKey);
     }
   },
+  /* 隐藏当前选中item的移除按钮
+   * @method handleItemRemove
+   * @param {Dom} dom 当前点击的item
+   * @return void
+   */
+  handleItemRemove(dom) {
+    dom.style.display = "none";
+    this.data.oinput.value = "";
+    this.data.searchValue = "";
+    this.data.removeKey = "";
+  },
+  /* 隐藏兄弟节点移除按钮
+   * @method hideBrotherNodeRemove
+   * @param {String} key 当前点击的item的key值
+   * @return void
+   */
   hideBrotherNodeRemove(key) {
     var oremoveList = document.querySelectorAll(
       ".auto-complate-dropdown-list-item-remove"
@@ -260,22 +292,6 @@ var autoComplate = {
     var height = this.data.oautoComplate.offsetHeight;
     this.data.odropdown.style.top = height + 5 + "px";
   },
-  //   handleTagsRemove(e) {
-  //     var parentNode = e.target.parentNode;
-  //     var key = parentNode.getAttribute("data-key");
-  //     var newList = [];
-  //     for (var i = 0; i < this.data.tagsList.length; i++) {
-  //       if (key === this.data.tagsList[i].key) {
-  //       } else {
-  //         newList.push(this.data.tagsList[i]);
-  //       }
-  //     }
-  //     this.data.tagsList = newList;
-  //     this.data.ocomplateList.removeChild(parentNode);
-  //     var height = this.data.oautoComplate.offsetHeight;
-  //     this.data.odropdown.style.top = height + 5 + "px";
-  //     this.insertToDropdown(1, 16, true);
-  //   },
   /* 将查询条件插入列表
    * @method insertToDropdown
    * @param {Number} curentIdex 当前index
@@ -293,17 +309,43 @@ var autoComplate = {
     if (curentIdex < 3) {
       var insertList = this.getQueryListByPage(curentIdex, size);
       var length = insertList.length;
-      for (var i = 0; i < length; i++) {
+      var that = this;
+      for (let i = 0; i < length; i++) {
         var li = document.createElement("li");
-        //   li.innerText = insertList[i].value;""
         if (this.data.removeKey === insertList[i].key) {
           li.setAttribute("class", "auto-complate-dropdown-list-item");
-          li.innerHTML = `<span class="auto-complate-dropdown-list-item-text">${insertList[i].value}</span>
-            <span class="auto-complate-dropdown-list-item-remove" style="display:inline" data-key=${insertList[i].key}>x</span>`;
+          var otext = document.createElement("span");
+          otext.setAttribute("class", "auto-complate-dropdown-list-item-text");
+          otext.innerText = insertList[i].value;
+          li.appendChild(otext);
+          var oremove1 = document.createElement("span");
+          oremove1.setAttribute(
+            "class",
+            "auto-complate-dropdown-list-item-remove"
+          );
+          oremove1.setAttribute("data-key", insertList[i].key);
+          oremove1.innerText = "x";
+          oremove1.style.display = "inline";
+          li.appendChild(oremove1);
+          oremove1.onclick = this.handleItemRemove.bind(
+            this,
+            oremove1
+          );
         } else {
           li.setAttribute("class", "auto-complate-dropdown-list-item");
-          li.innerHTML = `<span class="auto-complate-dropdown-list-item-text">${insertList[i].value}</span>
-            <span class="auto-complate-dropdown-list-item-remove" style="display:none" data-key=${insertList[i].key}>x</span>`;
+          var otext = document.createElement("span");
+          otext.setAttribute("class", "auto-complate-dropdown-list-item-text");
+          otext.innerText = insertList[i].value;
+          li.appendChild(otext);
+          var oremove = document.createElement("span");
+          oremove.setAttribute(
+            "class",
+            "auto-complate-dropdown-list-item-remove"
+          );
+          oremove.setAttribute("data-key", insertList[i].key);
+          oremove.innerText = "x";
+          oremove.style.display = "none";
+          li.appendChild(oremove);
         }
         li.setAttribute("data-key", insertList[i].key);
         this.data.oul.appendChild(li);
@@ -314,16 +356,40 @@ var autoComplate = {
     var length = insertList.length;
     for (var i = 0; i < length; i++) {
       var li = document.createElement("li");
-      li.innerHTML = `<span class="auto-complate-dropdown-list-item-text">${insertList[i].value}</span>
-        <span class="auto-complate-dropdown-list-item-remove" style="display:none" data-key=${insertList[i].key}>x</span>`;
       if (this.data.removeKey === insertList[i].key) {
         li.setAttribute("class", "auto-complate-dropdown-list-item");
-        li.innerHTML = `<span class="auto-complate-dropdown-list-item-text">${insertList[i].value}</span>
-            <span class="auto-complate-dropdown-list-item-remove" style="display:inline" data-key=${insertList[i].key}>x</span>`;
+        var otext = document.createElement("span");
+        otext.setAttribute("class", "auto-complate-dropdown-list-item-text");
+        otext.innerText = insertList[i].value;
+        li.appendChild(otext);
+        var oremove1 = document.createElement("span");
+        oremove1.setAttribute(
+          "class",
+          "auto-complate-dropdown-list-item-remove"
+        );
+        oremove1.setAttribute("data-key", insertList[i].key);
+        oremove1.innerText = "x";
+        oremove1.style.display = "inline";
+        li.appendChild(oremove1);
+        oremove1.onclick = this.handleItemRemove.bind(
+          this,
+          oremove1
+        );
       } else {
         li.setAttribute("class", "auto-complate-dropdown-list-item");
-        li.innerHTML = `<span class="auto-complate-dropdown-list-item-text">${insertList[i].value}</span>
-            <span class="auto-complate-dropdown-list-item-remove" style="display:none" data-key=${insertList[i].key}>x</span>`;
+        var otext = document.createElement("span");
+        otext.setAttribute("class", "auto-complate-dropdown-list-item-text");
+        otext.innerText = insertList[i].value;
+        li.appendChild(otext);
+        var oremove = document.createElement("span");
+        oremove.setAttribute(
+          "class",
+          "auto-complate-dropdown-list-item-remove"
+        );
+        oremove.setAttribute("data-key", insertList[i].key);
+        oremove.innerText = "x";
+        oremove.style.display = "none";
+        li.appendChild(oremove);
       }
       li.setAttribute("data-key", insertList[i].key);
       this.data.oul.appendChild(li);
