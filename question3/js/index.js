@@ -80,7 +80,7 @@ var renderList = {
    * @param {Number} pageSize 当前页显示长度
    * @param {String} query 查询字段
    * @param {Boolean} isCache 是否需要缓存
-   * @return {Array} void
+   * @return void
    */
   renderNewsListByPage(pageIndex, pageSize, query, isCache) {
     isCache = isCache || false;
@@ -108,12 +108,11 @@ var renderList = {
         isCache &&
         this.data.cacheList.length <= this.data.pageIndex * this.data.pageSize
       ) {
-        var list = this.data.queryList.concat().slice(startRow, endRow);
+        var list = this.fetchList(startRow, endRow);
         for (var i = 0; i < list.length; i++) {
           this.data.cacheList.push(list[i]);
         }
         newList = list;
-        console.log("from new list", newList);
       } else {
         newList = this.data.cacheList.concat().slice(startRow, endRow);
         console.log("from cache list", newList);
@@ -137,6 +136,16 @@ var renderList = {
     }
     lazyloadImages.init();
   },
+  /* 模拟获取列表
+   * @method fetchList
+   * @param {Number} pageIndex 当前页
+   * @param {Number} pageSize 当前页显示长度
+   * @return {Array} 获取的数据
+   */
+  fetchList(pageIndex, pageSize) {
+    console.log("from fetch list");
+    return this.data.queryList.concat().slice(pageIndex, pageSize);
+  }
 };
 
 window.onload = function () {
