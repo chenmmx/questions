@@ -1,0 +1,163 @@
+.demo {
+    width: 400px;
+    height: 400px;
+    margin: 200px auto;
+    /* border: 1px solid black; */
+}
+
+.auto-complate-show-search {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: rgba(0,0,0,.65);
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5715;
+    list-style: none;
+    -webkit-font-feature-settings: 'tnum';
+    font-feature-settings: 'tnum';
+    position: relative;
+    display: inline-block;
+    cursor: text;
+    border-radius: 3px;
+    transition: all .3s;
+}
+
+.auto-complate-show-search .auto-complate {
+    min-height: 32px;
+    position: relative;
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+    -webkit-transition: all .3s cubic-bezier(.645,.045,.355,1);
+    transition: all .3s cubic-bezier(.645,.045,.355,1);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: flex-start;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 1px 4px;
+}
+
+.auto-complate-show-search .auto-complate .auto-complate-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.auto-complate-show-search .auto-complate .auto-complate-dropdown {
+    position: absolute;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    top: 41px;
+    left: 0;
+    width: 100%;
+    overflow-x: hidden;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+    box-shadow: 0 3px 6px -4px rgba(0,0,0,.12), 0 6px 16px 0 rgba(0,0,0,.08), 0 9px 28px 8px rgba(0,0,0,.05);
+}
+
+.auto-complate-show-search .auto-complate .auto-complate-dropdown .auto-complate-dropdown-list {
+    overflow: auto;
+    height: 100%;
+}
+
+.auto-complate-show-search .auto-complate .auto-complate-item-remove {
+    cursor: pointer;
+}
+
+.auto-complate-show-search .auto-complate .auto-complate-dropdown .auto-complate-dropdown-list .auto-complate-dropdown-list-item {
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+    min-height: 32px;
+    padding: 5px 12px;
+    color: rgba(0,0,0,.65);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    cursor: pointer;
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+.auto-complate-show-search .auto-complate .auto-complate-dropdown .auto-complate-dropdown-list .auto-complate-dropdown-list-item-selected {
+    color: rgba(0,0,0,.65);
+    font-weight: 600;
+    background-color: #e6f7ff;
+}
+
+.auto-complate-show-search .auto-complate .auto-complate-dropdown .auto-complate-dropdown-list .auto-complate-dropdown-list-item:hover {
+    background-color: #f5f5f5;
+}
+
+.auto-complate-show-search .auto-complate .auto-complate-item {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 0;
+    -ms-flex: none;
+    flex: none;
+    height: 24px;
+    margin: 2px 4px 2px 0;
+    padding: 0 4px 0 8px;
+    line-height: 22px;
+    background: #f5f5f5;
+    border: 1px solid #f0f0f0;
+    border-radius: 2px;
+    cursor: default;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.auto-complate-show-search .auto-complate .auto-complate-item .auto-complate-item-content {
+    display: inline-block;
+    margin-right: 4px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.auto-complate-show-search .auto-complate .auto-complate-item .auto-complate-item-remove:hover {
+    color: rgba(0,0,0,.45);
+}
+
+.auto-complate-show-search .auto-complate .auto-complate-item .auto-complate-item-remove:hover {
+    color: rgba(0,0,0,.85);
+}
+
+.auto-complate-show-search .auto-complate .auto-complate-search {
+    position: relative;
+    margin-left: .5px;
+}
+
+.auto-complate-show-search .auto-complate .auto-complate-search .auto-complate-search-input {
+    width: 100%;
+    margin-left: 6.5px;
+    margin: 0;
+    padding: 0;
+    background: 0 0;
+    border: none;
+    outline: none;
+    cursor: auto;
+}
+
+.auto-complate-show-search .auto-complate .auto-complate-search .auto-complate-search-mirror {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    white-space: nowrap;
+    visibility: hidden;
+}

@@ -1,0 +1,264 @@
+/* header start  */
+.header {
+    box-sizing: border-box;
+    width: 100%;
+    /* display: flex;
+    justify-content: center; */
+    padding: 15px 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,.09);
+    background-color: #fff;
+    /* border: 1px solid black; */
+}
+
+.auto-complate-show-search {
+    width: 320px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: rgba(0,0,0,.65);
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5715;
+    list-style: none;
+    -webkit-font-feature-settings: 'tnum';
+    font-feature-settings: 'tnum';
+    position: relative;
+    display: flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    cursor: text;
+    border-radius: 3px;
+    transition: all .3s;
+    margin: 0 auto;
+}
+
+.auto-complate-show-search .auto-complate {
+    width: 100%;
+    min-height: 32px;
+    position: relative;
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+    -webkit-transition: all .3s cubic-bezier(.645,.045,.355,1);
+    transition: all .3s cubic-bezier(.645,.045,.355,1);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: flex-start;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 1px 4px;
+    border-radius: 15px 15px 0 2px;
+}
+
+.auto-complate-show-search .auto-complate-btn {
+    width: 15%;
+    height: 32px;
+    background-color: #635FDE;
+    color: #fff;
+    border-radius: 0 15px 2px 0;
+    line-height: 32px;
+    text-align: center;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.auto-complate-show-search .auto-complate .auto-complate-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.auto-complate-show-search .auto-complate .auto-complate-dropdown {
+    position: absolute;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    top: 32px;
+    left: 0;
+    width: 100%;
+    overflow-x: hidden;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+    box-shadow: 0 3px 6px -4px rgba(0,0,0,.12), 0 6px 16px 0 rgba(0,0,0,.08), 0 9px 28px 8px rgba(0,0,0,.05);
+    z-index: 1001;
+    background-color: #fff;
+    border-radius: 0 0px 15px 15px;
+}
+
+.auto-complate-show-search .auto-complate .auto-complate-dropdown .auto-complate-dropdown-list {
+    overflow: auto;
+    height: 100%;
+}
+
+.auto-complate-show-search .auto-complate .auto-complate-item-remove {
+    cursor: pointer;
+}
+
+.auto-complate-show-search .auto-complate .auto-complate-dropdown .auto-complate-dropdown-list .auto-complate-dropdown-list-item {
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+    min-height: 32px;
+    padding: 5px 12px;
+    color: rgba(0,0,0,.65);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    cursor: pointer;
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+.auto-complate-show-search .auto-complate .auto-complate-dropdown .auto-complate-dropdown-list .auto-complate-dropdown-list-item-selected {
+    color: rgba(0,0,0,.65);
+    font-weight: 600;
+    background-color: #e6f7ff;
+}
+
+.auto-complate-show-search .auto-complate .auto-complate-dropdown .auto-complate-dropdown-list .auto-complate-dropdown-list-item:hover {
+    background-color: #f5f5f5;
+}
+
+.auto-complate-show-search .auto-complate .auto-complate-item {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 0;
+    -ms-flex: none;
+    flex: none;
+    height: 24px;
+    margin: 2px 4px 2px 0;
+    padding: 0 4px 0 8px;
+    line-height: 22px;
+    background: #f5f5f5;
+    border: 1px solid #f0f0f0;
+    border-radius: 2px;
+    cursor: default;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.auto-complate-show-search .auto-complate .auto-complate-item .auto-complate-item-content {
+    display: inline-block;
+    margin-right: 4px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.auto-complate-show-search .auto-complate .auto-complate-item .auto-complate-item-remove:hover {
+    color: rgba(0,0,0,.45);
+}
+
+.auto-complate-show-search .auto-complate .auto-complate-item .auto-complate-item-remove:hover {
+    color: rgba(0,0,0,.85);
+}
+
+.auto-complate-show-search .auto-complate .auto-complate-search {
+    position: relative;
+    margin-left: .5px;
+}
+
+.auto-complate-show-search .auto-complate .auto-complate-search .auto-complate-search-input {
+    width: 100%;
+    margin-left: 6.5px;
+    margin: 0;
+    padding: 0;
+    background: 0 0;
+    border: none;
+    outline: none;
+    cursor: auto;
+}
+
+.auto-complate-show-search .auto-complate .auto-complate-search .auto-complate-search-mirror {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    white-space: nowrap;
+    visibility: hidden;
+}
+
+/* header end */
+
+/* main strat */
+.main {
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+}
+
+.main .news-item {
+    height: 120px;
+    padding: 10px;
+    width: 90%;
+    margin: 10px auto;
+    box-shadow: 0 2px 8px rgba(0,0,0,.09);
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.main .news-item .news-item-text .news-item-text-title{
+    color: #635FDE;
+}
+.main .news-item .news-item-text .news-item-text-content{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    font-size: 14px;
+}
+
+.main .news-item .news-item-text .news-item-text-time {
+    position: absolute;
+    bottom: 10px;
+    font-size: 12px;
+    color: rgba(0,0,0,.5);
+}
+
+.main .news-item .news-item-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+/* main end */
+
+/* footer start */
+.footer {
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+}
+
+.footer .pagination {
+    padding: 10px;
+    width: 90%;
+    margin: 0px auto 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.09);
+    border-radius: 10px;
+    justify-content: space-between;
+    position: relative; 
+    text-align: center;
+    cursor: pointer;
+}
+.footer .pagination:first-child {
+    margin-bottom: 10px;
+    transition: all .3s;
+}
+/* footer end */
