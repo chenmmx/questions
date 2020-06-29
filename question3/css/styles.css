@@ -71,7 +71,7 @@
     font-size: 16px;
     line-height: 32px;
     color: #635FDE;
-    opacity: 0;
+    display: none;
     position: absolute;
     right: 18%;
     top: 0;
@@ -228,6 +228,10 @@
     display: flex;
     justify-content: space-between;
     position: relative;
+}
+
+.main .news-item .news-item-text {
+    width: 70%;
 }
 
 .main .news-item .news-item-text .news-item-text-title{
