@@ -17,7 +17,7 @@ var renderList = {
     this.data.onews = document.querySelector(".main");
     this.data.oprev = document.querySelector(".footer .pagination-prev");
     this.data.onext = document.querySelector(".footer .pagination-next");
-    this.renderNewsListByPage();
+    this.renderNewsListByPage(this.data.pageIndex, this.data.pageSize, '', true);
     this.bindEvent();
   },
   /* 绑定dom事件
@@ -36,7 +36,7 @@ var renderList = {
   handleSearch: function (query) {
     this.data.pageIndex = 1;
     this.data.pageSize = 10;
-    this.renderNewsListByPage(this.data.pageIndex, this.data.pageSize, query);
+    this.renderNewsListByPage();
   },
   /* 上一页
    * @method handlePrevClick
@@ -62,16 +62,18 @@ var renderList = {
     if(Math.floor(length / this.data.pageSize) <= this.data.pageIndex) {
         this.data.onext.style.display = "none";
     }
-    this.renderNewsListByPage(this.data.pageIndex, this.data.pageSize);
+    this.renderNewsListByPage(this.data.pageIndex, this.data.pageSize, '', true);
   },
   /* 分页渲染虚拟数据列表
    * @method getMockListByPage
    * @param {Number} pageIndex 当前页
    * @param {Number} pageSize 当前页显示长度
    * @param {String} query 查询字段
-   * @return {Array} 分页后的数据
+   * @param {Boolean} isCache 是否需要缓存
+   * @return {Array} void
    */
-  renderNewsListByPage(pageIndex, pageSize, query) {
+  renderNewsListByPage(pageIndex, pageSize, query, isCache) {
+    isCache = isCache || false;
     this.data.onews.innerHTML = "";
     pageIndex = pageIndex || this.data.pageIndex;
     pageSize = pageSize || this.data.pageSize;
@@ -91,8 +93,18 @@ var renderList = {
       newList = [item];
     } else {
       this.data.onext.style.display = "block";
-      var newList = this.data.queryList.concat();
-      newList = newList.slice(startRow, endRow);
+      var newList = [];
+      if(isCache && this.data.cacheList.length <= this.data.pageIndex * this.data.pageSize) {
+        var list = this.data.queryList.concat().slice(startRow, endRow)
+        for(var i = 0; i < list.length; i ++) {
+          this.data.cacheList.push(list[i]);
+        }
+        newList = list;
+        console.log('from new list', newList);
+      }else {
+        newList = this.data.cacheList.concat().slice(startRow, endRow);
+        console.log('from cache list', newList);
+      }
     }
     var length = newList.length;
     for (var i = 0; i < length; i++) {
