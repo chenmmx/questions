@@ -7,7 +7,7 @@ var renderList = {
     onext: null,
     pageIndex: 1,
     pageSize: 10,
-    cacheList: []
+    cacheList: [],
   },
   /* 初始化
    * @method init
@@ -17,7 +17,12 @@ var renderList = {
     this.data.onews = document.querySelector(".main");
     this.data.oprev = document.querySelector(".footer .pagination-prev");
     this.data.onext = document.querySelector(".footer .pagination-next");
-    this.renderNewsListByPage(this.data.pageIndex, this.data.pageSize, '', true);
+    this.renderNewsListByPage(
+      this.data.pageIndex,
+      this.data.pageSize,
+      "",
+      true
+    );
     this.bindEvent();
   },
   /* 绑定dom事件
@@ -36,7 +41,7 @@ var renderList = {
   handleSearch: function (query) {
     this.data.pageIndex = 1;
     this.data.pageSize = 10;
-    this.renderNewsListByPage();
+    this.renderNewsListByPage(this.data.pageIndex, this.data.pageSize, query);
   },
   /* 上一页
    * @method handlePrevClick
@@ -59,10 +64,15 @@ var renderList = {
       this.data.oprev.style.display = "block";
     }
     var length = this.data.queryList.length;
-    if(Math.floor(length / this.data.pageSize) <= this.data.pageIndex) {
-        this.data.onext.style.display = "none";
+    if (Math.floor(length / this.data.pageSize) <= this.data.pageIndex) {
+      this.data.onext.style.display = "none";
     }
-    this.renderNewsListByPage(this.data.pageIndex, this.data.pageSize, '', true);
+    this.renderNewsListByPage(
+      this.data.pageIndex,
+      this.data.pageSize,
+      "",
+      true
+    );
   },
   /* 分页渲染虚拟数据列表
    * @method getMockListByPage
@@ -94,16 +104,19 @@ var renderList = {
     } else {
       this.data.onext.style.display = "block";
       var newList = [];
-      if(isCache && this.data.cacheList.length <= this.data.pageIndex * this.data.pageSize) {
-        var list = this.data.queryList.concat().slice(startRow, endRow)
-        for(var i = 0; i < list.length; i ++) {
+      if (
+        isCache &&
+        this.data.cacheList.length <= this.data.pageIndex * this.data.pageSize
+      ) {
+        var list = this.data.queryList.concat().slice(startRow, endRow);
+        for (var i = 0; i < list.length; i++) {
           this.data.cacheList.push(list[i]);
         }
         newList = list;
-        console.log('from new list', newList);
-      }else {
+        console.log("from new list", newList);
+      } else {
         newList = this.data.cacheList.concat().slice(startRow, endRow);
-        console.log('from cache list', newList);
+        console.log("from cache list", newList);
       }
     }
     var length = newList.length;
