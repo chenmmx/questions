@@ -7,6 +7,9 @@
     padding: 15px 0;
     box-shadow: 0 2px 8px rgba(0,0,0,.09);
     background-color: #fff;
+    position: fixed;
+    top: 0;
+    z-index: 1001;
     /* border: 1px solid black; */
 }
 
@@ -215,7 +218,7 @@
 .main {
     width: 100%;
     max-width: 750px;
-    margin: 0 auto;
+    margin: 80px auto 0;
 }
 
 .main .news-item {
