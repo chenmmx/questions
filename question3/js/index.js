@@ -3,7 +3,7 @@ var renderList = {
   data: {
     queryList: [],
     onews: null,
-    oprev: null,
+    // oprev: null,
     onext: null,
     pageIndex: 1,
     pageSize: 10,
@@ -15,7 +15,7 @@ var renderList = {
    */
   init: function () {
     this.data.onews = document.querySelector(".main");
-    this.data.oprev = document.querySelector(".footer .pagination-prev");
+    // this.data.oprev = document.querySelector(".footer .pagination-prev");
     this.data.onext = document.querySelector(".footer .pagination-next");
     this.renderNewsListByPage(
       this.data.pageIndex,
@@ -30,7 +30,7 @@ var renderList = {
    * @return void
    */
   bindEvent: function () {
-    this.data.oprev.onclick = this.handlePrevClick.bind(this);
+    // this.data.oprev.onclick = this.handlePrevClick.bind(this);
     this.data.onext.onclick = this.handleNextClick.bind(this);
   },
   /* 搜索
@@ -47,22 +47,22 @@ var renderList = {
    * @method handlePrevClick
    * @return void
    */
-  handlePrevClick() {
-    this.data.pageIndex--;
-    if (this.data.pageIndex <= 1) {
-      this.data.oprev.style.display = "none";
-    }
-    this.renderNewsListByPage(this.data.pageIndex, this.data.pageSize);
-  },
+  // handlePrevClick() {
+  //   this.data.pageIndex--;
+  //   if (this.data.pageIndex <= 1) {
+  //     this.data.oprev.style.display = "none";
+  //   }
+  //   this.renderNewsListByPage(this.data.pageIndex, this.data.pageSize);
+  // },
   /* 上一页
    * @method handleNextClick
    * @return void
    */
   handleNextClick() {
     this.data.pageIndex++;
-    if (this.data.pageIndex > 1) {
-      this.data.oprev.style.display = "block";
-    }
+    // if (this.data.pageIndex > 1) {
+    //   this.data.oprev.style.display = "block";
+    // }
     var length = this.data.queryList.length;
     if (Math.floor(length / this.data.pageSize) <= this.data.pageIndex) {
       this.data.onext.style.display = "none";
@@ -91,7 +91,7 @@ var renderList = {
     var endRow = pageIndex * pageSize;
     var newList = [];
     if (query) {
-      this.data.oprev.style.display = "none";
+      // this.data.oprev.style.display = "none";
       this.data.onext.style.display = "none";
       var item = null;
       var len = this.data.queryList.length;

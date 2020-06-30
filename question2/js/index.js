@@ -1,4 +1,12 @@
-var lazyloadImages = {
+(function () {
+  // 因环境不支持commonjs，模拟一个
+  var root =
+    (typeof self == "object" && self.self == self && self) ||
+    (typeof global == "object" && global.global == global && global) ||
+    this ||
+    {};
+
+  var lazyloadImages = {
     data: {
       oimgs: null,
     },
@@ -35,17 +43,30 @@ var lazyloadImages = {
       var H = document.documentElement.clientHeight; //获取可视区域高度
       var S = document.documentElement.scrollTop || document.body.scrollTop;
       for (var i = 0; i < imgs.length; i++) {
-        if (H + S > this.getTop(imgs[i]) && this.getTop(imgs[i]) > S - imgs[i].height ) {
-          if(imgs[i].src){
-
-          }
-          else {
+        if (
+          H + S > this.getTop(imgs[i]) &&
+          this.getTop(imgs[i]) > S - imgs[i].height
+        ) {
+          if (imgs[i].src) {
+          } else {
             imgs[i].src = imgs[i].getAttribute("data-src");
           }
         }
       }
     },
   };
+
+  // 判断当前环境是否支持模块导出
+  if (typeof exports != "undefined" && !exports.nodeType) {
+    if (typeof module != "undefined" && !module.nodeType && module.exports) {
+      exports = module.exports = lazyloadImages;
+    }
+    exports.lazyloadImages = lazyloadImages;
+  } else {
+    root.lazyloadImages = lazyloadImages;
+  }
+})();
+
   
   window.onload = window.onscroll = function () {
       lazyloadImages.init();
