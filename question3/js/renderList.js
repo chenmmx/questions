@@ -51,7 +51,7 @@ var lazyloadImages = require("./lazyLoad");
     handleSearch: function (query) {
       this.data.pageIndex = 1;
       this.data.pageSize = 10;
-      this.renderNewsListByPage(this.data.pageIndex, this.data.pageSize, query);
+      this.renderNewsListByPage(this.data.pageIndex, this.data.pageSize, query, false, true);
     },
     /* 上一页
      * @method handlePrevClick
@@ -90,10 +90,15 @@ var lazyloadImages = require("./lazyLoad");
      * @param {Number} pageSize 当前页显示长度
      * @param {String} query 查询字段
      * @param {Boolean} isCache 是否需要缓存
+     * @param {Boolean} isCache 是否清空列表
      * @return void
      */
-    renderNewsListByPage(pageIndex, pageSize, query, isCache) {
+    renderNewsListByPage(pageIndex, pageSize, query, isCache, isClearList) {
       isCache = isCache || false;
+      isClearList = isClearList || false;
+      if(isClearList) {
+        this.data.onews.innerHTML = "";
+      }
       pageIndex = pageIndex || this.data.pageIndex;
       pageSize = pageSize || this.data.pageSize;
       var startRow = (pageIndex - 1) * pageSize;
@@ -101,7 +106,6 @@ var lazyloadImages = require("./lazyLoad");
       var newList = [];
       if (query) {
         // this.data.oprev.style.display = "none";
-        this.data.onews.innerHTML = "";
         this.data.onext.style.display = "none";
         var item = null;
         var len = this.data.queryList.length;
