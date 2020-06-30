@@ -94,7 +94,6 @@ var lazyloadImages = require("./lazyLoad");
      */
     renderNewsListByPage(pageIndex, pageSize, query, isCache) {
       isCache = isCache || false;
-      this.data.onews.innerHTML = "";
       pageIndex = pageIndex || this.data.pageIndex;
       pageSize = pageSize || this.data.pageSize;
       var startRow = (pageIndex - 1) * pageSize;
@@ -102,6 +101,7 @@ var lazyloadImages = require("./lazyLoad");
       var newList = [];
       if (query) {
         // this.data.oprev.style.display = "none";
+        this.data.onews.innerHTML = "";
         this.data.onext.style.display = "none";
         var item = null;
         var len = this.data.queryList.length;
