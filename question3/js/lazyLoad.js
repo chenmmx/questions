@@ -1,5 +1,5 @@
 (function () {
-  // 因环境不支持commonjs，模拟一个
+  // 若环境不支持commonjs，模拟一个
   var root =
     (typeof self == "object" && self.self == self && self) ||
     (typeof global == "object" && global.global == global && global) ||

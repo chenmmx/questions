@@ -1,0 +1,10 @@
+{
+  "name": "question3",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "chenmmx",
+  "license": "MIT",
+  "dependencies": {
+    "uniq": "^1.0.1"
+  }
+}
