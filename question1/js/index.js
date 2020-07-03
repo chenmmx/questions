@@ -23,7 +23,7 @@
   // auto-complate
   function AutoComplate(opts) {
     this.opts = util.extend({}, this.constructor.defaultOpts, opts);
-    this.init(opts.node, opts.data);
+    this.init(this.opts.node, this.opts.data);
   }
 
   AutoComplate.defaultOpts = {
