@@ -23,9 +23,12 @@
   // auto-complate
   function AutoComplate(opts) {
     this.opts = util.extend({}, this.constructor.defaultOpts, opts);
-    var node = this.opts.node || "";
-    var data = this.opts.data || [];
-    this.init(node, data);
+    this.init(opts.node, opts.data);
+  }
+
+  AutoComplate.defaultOpts = {
+    node: '',
+    data: []
   }
 
   var proto = AutoComplate.prototype;
